@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тапалка на Луне</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        #moonTap {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-image: url('moon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        #score {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #energy {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #level {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        #boosters {
+            margin-top: 20px;
+            display: flex;
+        }
+
+        .booster {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        #saveLoadButtons {
+            margin-top: 20px;
+        }
+
+        #inviteFriends, #tasks {
+            margin-top: 20px;
+        }
+
+        #inviteFriends button, #tasks button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тапалка на Луне</h1>
+    <div id="moonTap">
+        <img src="moon.png" alt="Moon">
+    </div>
+    <div id="score">Счет: <span id="scoreValue">0</span></div>
+    <div id="energy">Энергия: <span id="energyValue">2000</span></div>
+    <div id="level">Уровень: <span id="levelValue">1</span></div>
+    <div id="boosters">
+        <button class="booster" onclick="useBooster('doublePoints')">Удвоить поинты (5 осталось)</button>
+        <button class="booster" onclick="useBooster('fullEnergy')">Полная энергия (5 осталось)</button>
+    </div>
+    <div id="saveLoadButtons">
+        <button onclick="saveProgress()">Сохранить прогресс</button>
+        <button onclick="loadProgress()">Загрузить прогресс</button>
+    </div>
+    <div id="inviteFriends">
+        <button onclick="inviteFriends()">Пригласить друзей</button>
+    </div>
+    <div id="tasks">
+        <button onclick="completeTask()">Выполнить задание</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let maxClicks = 2000;
+        let energy = 2000;
+        let level = 1;
+        let boosters = {
+            doublePoints: 5,
+            fullEnergy: 5
+        };
+
+        document.getElementById("moonTap").addEventListener("click", function() {
+            if (energy > 0 && score < maxClicks) {
+                score += boosters.doublePoints > 0 ? 2 : level;
+                energy--;
+                document.getElementById("scoreValue").textContent = score;
+                updateBoosters();
+                updateMoonSize();
+            }
+        });
+
+        function useBooster(type) {
+            if (boosters[type] > 0) {
+                switch(type) {
+                    case 'doublePoints':
+                        boosters.doublePoints--;
+                        break;
+                    case 'fullEnergy':
+                        energy = 2000;
+                        boosters.fullEnergy--;
+                        break;
+                }
+                updateBoosters();
+            }
+        }
+
+        function updateBoosters() {
+            document.getElementById("scoreValue").textContent = score;
+            document.getElementById("boosters").innerHTML = `
+                <button class="booster" onclick="useBooster('doublePoints')">Удвоить поинты (${boosters.doublePoints} осталось)</button>
+                <button class="booster" onclick="useBooster('fullEnergy')">Полная энергия (${boosters.fullEnergy} осталось)</button>
+            `;
+        }
+
+        function updateMoonSize() {
+            let moon = document.getElementById("moonTap");
+            let energyFraction = energy / 2000;
+            moon.style.backgroundSize = (100 * energyFraction) + "%";
+        }
+
+        function saveProgress() {
+            let progress = {
+                score: score,
+                maxClicks: maxClicks,
+                energy: energy,
+                level: level,
+                boosters: boosters
+            };
+            localStorage.setItem("gameProgress", JSON.stringify(progress));
+            alert("Прогресс сохранен!");
+        }
+
+        function loadProgress() {
+            let progress = localStorage.getItem("gameProgress");
+            if (progress) {
+                progress = JSON.parse(progress);
+				                score = progress.score;
+                maxClicks = progress.maxClicks;
+                energy = progress.energy;
+                level = progress.level;
+                boosters = progress.boosters;
+                document.getElementById("scoreValue").textContent = score;
+                document.getElementById("levelValue").textContent = level;
+                document.getElementById("energyValue").textContent = energy;
+                updateBoosters();
+                alert("Прогресс загружен!");
+            } else {
+                alert("Нет сохраненного прогресса.");
+            }
+        }
+
+        function inviteFriends() {
+            // Здесь можно добавить логику приглашения друзей и начисления монет
+        }
+
+        function completeTask() {
+            // Здесь можно добавить логику выполнения задания и начисления монет
+        }
+
+        // Вызываем функцию обновления интерфейса при загрузке страницы
+        window.onload = function() {
+            updateBoosters();
+            updateMoonSize();
+        };
+    </script>
+</body>
+</html>
+
