@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тапалка на Луне</title>
+    <title>РўР°РїР°Р»РєР° РЅР° Р›СѓРЅРµ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,26 +75,26 @@
     </style>
 </head>
 <body>
-    <h1>Тапалка на Луне</h1>
+    <h1>РўР°РїР°Р»РєР° РЅР° Р›СѓРЅРµ</h1>
     <div id="moonTap">
         <img src="moon.png" alt="Moon">
     </div>
-    <div id="score">Счет: <span id="scoreValue">0</span></div>
-    <div id="energy">Энергия: <span id="energyValue">2000</span></div>
-    <div id="level">Уровень: <span id="levelValue">1</span></div>
+    <div id="score">РЎС‡РµС‚: <span id="scoreValue">0</span></div>
+    <div id="energy">Р­РЅРµСЂРіРёСЏ: <span id="energyValue">2000</span></div>
+    <div id="level">РЈСЂРѕРІРµРЅСЊ: <span id="levelValue">1</span></div>
     <div id="boosters">
-        <button class="booster" onclick="useBooster('doublePoints')">Удвоить поинты (5 осталось)</button>
-        <button class="booster" onclick="useBooster('fullEnergy')">Полная энергия (5 осталось)</button>
+        <button class="booster" onclick="useBooster('doublePoints')">РЈРґРІРѕРёС‚СЊ РїРѕРёРЅС‚С‹ (5 РѕСЃС‚Р°Р»РѕСЃСЊ)</button>
+        <button class="booster" onclick="useBooster('fullEnergy')">РџРѕР»РЅР°СЏ СЌРЅРµСЂРіРёСЏ (5 РѕСЃС‚Р°Р»РѕСЃСЊ)</button>
     </div>
     <div id="saveLoadButtons">
-        <button onclick="saveProgress()">Сохранить прогресс</button>
-        <button onclick="loadProgress()">Загрузить прогресс</button>
+        <button onclick="saveProgress()">РЎРѕС…СЂР°РЅРёС‚СЊ РїСЂРѕРіСЂРµСЃСЃ</button>
+        <button onclick="loadProgress()">Р—Р°РіСЂСѓР·РёС‚СЊ РїСЂРѕРіСЂРµСЃСЃ</button>
     </div>
     <div id="inviteFriends">
-        <button onclick="inviteFriends()">Пригласить друзей</button>
+        <button onclick="inviteFriends()">РџСЂРёРіР»Р°СЃРёС‚СЊ РґСЂСѓР·РµР№</button>
     </div>
     <div id="tasks">
-        <button onclick="completeTask()">Выполнить задание</button>
+        <button onclick="completeTask()">Р’С‹РїРѕР»РЅРёС‚СЊ Р·Р°РґР°РЅРёРµ</button>
     </div>
 
     <script>
@@ -135,8 +135,8 @@
         function updateBoosters() {
             document.getElementById("scoreValue").textContent = score;
             document.getElementById("boosters").innerHTML = `
-                <button class="booster" onclick="useBooster('doublePoints')">Удвоить поинты (${boosters.doublePoints} осталось)</button>
-                <button class="booster" onclick="useBooster('fullEnergy')">Полная энергия (${boosters.fullEnergy} осталось)</button>
+                <button class="booster" onclick="useBooster('doublePoints')">РЈРґРІРѕРёС‚СЊ РїРѕРёРЅС‚С‹ (${boosters.doublePoints} РѕСЃС‚Р°Р»РѕСЃСЊ)</button>
+                <button class="booster" onclick="useBooster('fullEnergy')">РџРѕР»РЅР°СЏ СЌРЅРµСЂРіРёСЏ (${boosters.fullEnergy} РѕСЃС‚Р°Р»РѕСЃСЊ)</button>
             `;
         }
 
@@ -155,14 +155,14 @@
                 boosters: boosters
             };
             localStorage.setItem("gameProgress", JSON.stringify(progress));
-            alert("Прогресс сохранен!");
+            alert("РџСЂРѕРіСЂРµСЃСЃ СЃРѕС…СЂР°РЅРµРЅ!");
         }
 
         function loadProgress() {
             let progress = localStorage.getItem("gameProgress");
             if (progress) {
                 progress = JSON.parse(progress);
-				                score = progress.score;
+		                    score = progress.score;
                 maxClicks = progress.maxClicks;
                 energy = progress.energy;
                 level = progress.level;
@@ -171,21 +171,21 @@
                 document.getElementById("levelValue").textContent = level;
                 document.getElementById("energyValue").textContent = energy;
                 updateBoosters();
-                alert("Прогресс загружен!");
+                alert("РџСЂРѕРіСЂРµСЃСЃ Р·Р°РіСЂСѓР¶РµРЅ!");
             } else {
-                alert("Нет сохраненного прогресса.");
+                alert("РќРµС‚ СЃРѕС…СЂР°РЅРµРЅРЅРѕРіРѕ РїСЂРѕРіСЂРµСЃСЃР°.");
             }
         }
 
         function inviteFriends() {
-            // Здесь можно добавить логику приглашения друзей и начисления монет
+            // Р—РґРµСЃСЊ РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ Р»РѕРіРёРєСѓ РїСЂРёРіР»Р°С€РµРЅРёСЏ РґСЂСѓР·РµР№ Рё РЅР°С‡РёСЃР»РµРЅРёСЏ РјРѕРЅРµС‚
         }
 
         function completeTask() {
-            // Здесь можно добавить логику выполнения задания и начисления монет
+            // Р—РґРµСЃСЊ РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ Р»РѕРіРёРєСѓ РІС‹РїРѕР»РЅРµРЅРёСЏ Р·Р°РґР°РЅРёСЏ Рё РЅР°С‡РёСЃР»РµРЅРёСЏ РјРѕРЅРµС‚
         }
 
-        // Вызываем функцию обновления интерфейса при загрузке страницы
+        // Р’С‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ РѕР±РЅРѕРІР»РµРЅРёСЏ РёРЅС‚РµСЂС„РµР№СЃР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ СЃС‚СЂР°РЅРёС†С‹
         window.onload = function() {
             updateBoosters();
             updateMoonSize();
