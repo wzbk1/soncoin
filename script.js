@@ -1,23 +1,36 @@
-function linkWallet() {
-    const walletAddress = document.getElementById('wallet-address').value;
+// Initialize TonConnect SDK
+const tonConnect = new TonConnect();
 
-    if (walletAddress) {
+document.getElementById('connect-wallet-button').addEventListener('click', async () => {
+    try {
+        const manifestUrl = 'https://your-manifest-url.com/manifest.json'; // Replace with your manifest URL
+        await tonConnect.connect({ manifestUrl });
+        const walletAddress = tonConnect.wallet.account.address;
         document.getElementById('wallet-section').style.display = 'none';
         document.getElementById('transfer-section').style.display = 'block';
-        document.getElementById('message').innerText = 'Wallet linked successfully!';
-    } else {
-        document.getElementById('message').innerText = 'Please enter a valid wallet address.';
+        document.getElementById('message').innerText = `Wallet connected: ${walletAddress}`;
+    } catch (error) {
+        console.error('Error connecting wallet:', error);
+        document.getElementById('message').innerText = 'Failed to connect wallet.';
     }
-}
+});
 
-function transferTokens() {
+async function transferTokens() {
     const recipientAddress = document.getElementById('recipient-address').value;
     const amount = document.getElementById('amount').value;
 
     if (recipientAddress && amount > 0) {
-        const tonkeeperUrl = `https://app.tonkeeper.com/transfer/${recipientAddress}?amount=${amount}`;
-        window.open(tonkeeperUrl, '_blank');
-        document.getElementById('message').innerText = `Transferring ${amount} TON to ${recipientAddress}`;
+        try {
+            const transferPayload = {
+                to: recipientAddress,
+                amount: amount
+            };
+            await tonConnect.sendTransaction(transferPayload);
+            document.getElementById('message').innerText = `Transferred ${amount} TON to ${recipientAddress}`;
+        } catch (error) {
+            console.error('Error transferring tokens:', error);
+            document.getElementById('message').innerText = 'Failed to transfer tokens.';
+        }
     } else {
         document.getElementById('message').innerText = 'Please enter a valid recipient address and amount.';
     }
