@@ -1,0 +1,12 @@
+{
+    "name": "SonCoin Wallet",
+    "description": "A web application to manage SonCoin via Telegram Wallet.",
+    "url": "https://your-website.com",  // URL of your web application
+    "icons": [
+        {
+            "src": "https://your-website.com/icon.png",  // URL to your app icon
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
