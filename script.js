@@ -1,19 +1,22 @@
+// scripts.js
 document.getElementById('connectWallet').addEventListener('click', async () => {
     try {
-        const { TonConnect } = await import('@tonconnect/sdk');
-        const connector = new TonConnect();
-
-        // Redirect the user to connect their wallet
-        const connectUrl = connector.createConnectUrl({ redirectUri: window.location.href });
-        window.location.href = connectUrl;
-
-        connector.onStatusChange(async (wallet) => {
-            if (wallet) {
-                document.getElementById('walletAddress').innerText = `Connected wallet: ${wallet.address}`;
-                // Here you can add functionality to send tokens or other actions
-            }
+        const result = await ton.connect({
+            domainName: 'test.com',
+            appName: 'Test App',
+            appIcon: 'https://example.com/icon.png',
+            callbackLink: 'https://example.com/callback',
+            fields: {
+                pubkey: true,
+                address: true,
+                balance: false,
+            },
         });
+
+        console.log(result);
+        alert(`Connected wallet: ${result.pubkey}`);
     } catch (error) {
-        console.error('Error connecting wallet:', error);
+        console.error(error);
+        alert('Failed to connect wallet.');
     }
 });
