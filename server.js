@@ -3,17 +3,20 @@ const TonWeb = require('tonweb');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Используйте ваш реальный URL для размещения веб-приложения, например, URL вашего сервера или GitHub Pages
+const REAL_URL = 'https://wzbk1.github.io/soncoin/';
+
 app.get('/connect', (req, res) => {
     // Генерация URL для подключения кошелька
-    const connectionUrl = 'ton://connect'; // Это пример, замените на реальный URL
+    const connectionUrl = `ton://connect?url=${REAL_URL}/manifest.json`;
     res.json({ url: connectionUrl });
 });
 
 app.get('/manifest.json', (req, res) => {
     res.json({
         name: 'Your DApp Name',
-        url: 'http://localhost:3000',
-        iconUrl: 'http://localhost:3000/icon.png'
+        url: REAL_URL,
+        iconUrl: `${REAL_URL}/icon.png`
     });
 });
 
