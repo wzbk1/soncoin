@@ -1,0 +1,9 @@
+{
+    "name": "SonCoin",
+    "url": "https://wzbk1.github.io/soncoin/",
+    "iconUrl": "https://wzbk1.github.io/soncoin/icon.png",
+    "termsOfUseUrl": "https://wzbk1.github.io/soncoin/terms-of-use.html",
+    "privacyPolicyUrl": "https://wzbk1.github.io/soncoin/privacy-policy.html",
+    "description": "Buy SonCoin Tokens",
+    "supportedInterfaces": ["ton://", "https://"]
+}
