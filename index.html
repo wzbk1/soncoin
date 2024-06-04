@@ -1,61 +1,15 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js" defer></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TON Connect Integration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>TON Connect Integration Demo</h1>
+    <button id="connectWallet">Connect TON Wallet</button>
 
-    <style>
-      body {
-        width: 1000px;
-        margin: 0 auto;
-        font-family: Roboto, sans-serif;
-      }
-      .section {
-        padding: 20px; margin: 20px;
-        border: 2px #AEFF6A solid; border-radius: 8px;
-      }
-      #tonconnect-buttons>button {
-        display: block;
-        padding: 8px; margin-bottom: 8px;
-        font-size: 18px; font-family: inherit;
-      }
-      .featured {
-        font-weight: 800;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="section" id="tonconnect-buttons">
-    </div>
-    
-    <script>
-      const $ = document.querySelector.bind(document);
-      
-      window.onload = async () => {
-        const connector = new TonConnectSDK.TonConnect();
-        const walletsList = await connector.getWallets();
-
-        let buttonsContainer = $('#tonconnect-buttons');
-        
-        for (let wallet of walletsList) {
-          let connectButton = document.createElement('button');
-          connectButton.innerText = 'Connect with ' + wallet.name;
-          
-          if (wallet.embedded) {
-            // `embedded` means we are browsing the app from wallet application
-            // we need to mark this sign-in option somehow
-            connectButton.classList.add('featured');
-          }
-          
-          if (!wallet.bridgeUrl && !wallet.injected && !wallet.embedded) {
-            // no `bridgeUrl` means this wallet app is injecting JS code
-            // no `injected` and no `embedded` -> app is inaccessible on this page
-            connectButton.disabled = true;
-          }
-          
-          buttonsContainer.appendChild(connectButton);
-        }
-      };
-    </script>
-  </body>
+    <script src="scripts.js"></script>
+</body>
 </html>
